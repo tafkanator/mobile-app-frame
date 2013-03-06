@@ -24,6 +24,31 @@ HTML, BODY {
 	z-index: 1;
 }
 
+/*nav*/
+#sitenav ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-align: center;
+}
+#sitenav li {
+	margin: 0 10px;
+	padding: 0;
+	display: inline-block;
+}
+#sitenav a {
+	display: inline-block;
+	padding: 0 10px;
+	line-height: 40px;
+	background-color: #222;
+	color: #fff;
+	text-decoration: none;
+}
+#sitenav li.active a {
+	background-color: #111;
+}
+
+
 /* APP5 customizations */
 .app5-page {
 	box-sizing: border-box;

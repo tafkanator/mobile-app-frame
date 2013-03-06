@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>UR</title>
+	<title>Mobile app</title>
 	<meta name="description" content="Play is older than man">
 	<meta name="HandheldFriendly" content="True">
 	<meta name="MobileOptimized" content="320">
@@ -35,14 +35,25 @@
 </head>
 
 <body>
-	<div id="header">header</div>
+	<div id="header">
+		<nav id="sitenav">
+			<ul>
+				<li><a href="#page-1">page 1</a></li>
+				<li class="active"><a href="#page-2">page 2</a></li>
+				<li><a href="#page-2">page 3</a></li>
+			</ul>
+		</nav>
+	</div>
 	<div id="pages">
-	<div id="content-0" class="app5-page auth-module login-action">
-		last page
-	</div>
-	<div id="content-1" class="app5-page other-module other-action app5-page-active">
-		current page
-	</div>
+		<div id="page-1" class="app5-page">
+			page 1
+		</div>
+		<div id="page-2" class="app5-page app5-page-active">
+			page 2
+		</div>
+		<div id="page-2" class="app5-page">
+			page 3
+		</div>
 	</div>
 </body>
 </html>
