@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>UR</title>
+	<meta name="description" content="Play is older than man">
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="width=device-width, initial-scale=1 minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<meta http-equiv="cleartype" content="on">
+
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/touch/apple-touch-icon-144x144-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/touch/apple-touch-icon-114x114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/touch/apple-touch-icon-72x72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" href="images/touch/apple-touch-icon-57x57-precomposed.png">
+	<link rel="shortcut icon" href="images/touch/apple-touch-icon.png">
+
+	<!-- Tile icon for Win8 (144x144 + tile color) -->
+	<meta name="msapplication-TileImage" content="images/touch/apple-touch-icon-144x144-precomposed.png">
+	<meta name="msapplication-TileColor" content="#222222">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="UR">
+
+	<!-- This script prevents links from opening in Mobile Safari. https://gist.github.com/1042026 -->
+	<script>(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")</script>
+
+	<link rel="stylesheet" href="style/normalize.css">
+	<link rel="stylesheet" href="style/transitions.css" type="text/css">
+	<link rel="stylesheet" href="style/main.css">
+	
+	<!--<script src="js/jquery-1.9.1.min.js"></script>-->
+	<script src="js/jquery-2.0.0b2.js"></script>
+</head>
+
+<body>
+	<div id="header">header</div>
+	<div id="pages">
+	<div id="content-0" class="app5-page auth-module login-action">
+		last page
+	</div>
+	<div id="content-1" class="app5-page other-module other-action app5-page-active">
+		current page
+	</div>
+	</div>
+</body>
+</html>
