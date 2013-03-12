@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	
-	var frame = new AppFrame({
+	var appFrame = new AppFrame({
 		activeClass: 'app5-page-active',
 		preActiveClass: 'page-pre-active',
 		navActiveClass: 'active',
@@ -60,7 +60,7 @@ AppFrame.prototype.init = function() {
 	});
 
 	//create transition callback
-	this.wrap.on( 'webkitTransitionEnd', function(event) {
+	this.wrap.on( 'webkitTransitionEnd oTransitionEnd transitionend', function(event) {
 		self.endPageChange();
 	});
 

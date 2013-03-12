@@ -7,9 +7,21 @@ HTML, BODY {
 	font-size: 16px;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 	-webkit-touch-callout: none;
+	background-color: #444;
 }
 
 /* Main layout */
+
+
+.intro {
+	margin: 50px 20px 30px;
+	font: 45px/1.5 arial, helvetica, sans-serif;
+	color: #eee;
+	font-weight: bold;
+	text-shadow: 1px 1px rgba(0,0,0,0.3);
+
+}
+
 #header {
 	position: fixed;
 	width: 100%;
@@ -42,34 +54,39 @@ HTML, BODY {
 	text-decoration: none;
 }
 #sitenav li.active a {
-	background-color: #ccc;
+	background-color: #ff7f66;
 }
 
 #page-1 {
-	background-color: green;
+	background-color: #ff5b5b;
 }
 #page-2 {
-	background-color: red;
+	background-color: #2185c5;
 }
 #page-3 {
-	background-color: blue;
+	background-color: #70e8cb;
 }
 
 /* APP5 customizations */
 #pages {
 	-webkit-transform: translate3d(0,0,0);
+	   -moz-transform: translate3d(0,0,0);
+	    -ms-transform: translate3d(0,0,0);
+			transform: translate3d(0,0,0);
+	
 }
 .app5-page {
-	box-sizing: border-box;
+	-webkit-backface-visibility: hidden;
 	display: none;
 	position: absolute;
 	top: 0;
 	left: 0;
 	margin: 0;
-	padding: 60px 20px 20px 20px;
+	padding: 60px 0 20px 0;
 	width: 100%;
 	min-height: 1px;
 	z-index: 1;
+	
 }
 .app5-page-active {
 	display: block;
@@ -79,12 +96,14 @@ HTML, BODY {
 	left: -100%;
 }
 
-
-
 /*animation*/
-
-
 #pages.slide-to-left {
+	-webkit-transform: translateX(100%);
+	   -moz-transform: translateX(100%);
+	    -ms-transform: translateX(100%);
+			transform: translateX(100%);
 	-webkit-transition-duration: 300ms;
-	-webkit-transform: translate3d(100%,0,0);
+	   -moz-transition-duration: 300ms;
+	    -ms-transition-duration: 300ms;
+			transition-duration: 300ms;
 }
