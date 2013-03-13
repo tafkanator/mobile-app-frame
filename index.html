@@ -27,12 +27,29 @@
 	<script>(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")</script>
 
 	<link rel="stylesheet" href="style/normalize.css">
-	<link rel="stylesheet" href="style/transitions.css" type="text/css">
 	<link rel="stylesheet" href="style/main.css">
 	
-	<!--<script src="js/jquery-1.9.1.min.js"></script>-->
 	<script src="js/jquery-2.0.0b2.js"></script>
-	<script src="js/system.js"></script>
+	<!--<script src="js/jquery-1.9.1.min.js"></script>-->
+	
+	<!--system code. delete it in your system-->
+	<link rel="stylesheet" href="system/system.css">
+	<script src="system/system.js"></script>
+	<script>
+		var appFrame;
+		$(document).ready(function() {
+			appFrame = new AppFrame({
+				activeClass: 'app5-page-active',
+				preActiveClass: 'app5-page-pre-active',
+				navActiveClass: 'active',
+				pageWrap: '#pages',
+				pageClass: 'app5-page',
+				navId: '#sitenav',
+				inlineNavLinks: '.app5-nav'
+			});
+		});
+	</script>
+	
 </head>
 
 <body>

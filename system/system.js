@@ -1,17 +1,3 @@
-$(document).ready(function() {
-	
-	var appFrame = new AppFrame({
-		activeClass: 'app5-page-active',
-		preActiveClass: 'page-pre-active',
-		navActiveClass: 'active',
-		pageWrap: '#pages',
-		pageClass: 'app5-page',
-		navId: '#sitenav',
-		inlineNavLinks: '.app5-nav'
-	});
-	
-});
-
 var AppFrame = function(config) {
 	this.config = {
 		activeClass: config.activeClass,
@@ -20,7 +6,11 @@ var AppFrame = function(config) {
 		pageWrap: config.pageWrap,
 		pageClass: config.pageClass,
 		navId: config.navId,
-		inlineNavLinks: config.inlineNavLinks
+		inlineNavLinks: config.inlineNavLinks,
+		animations: {
+			'-1': 'slide-to-right',
+			'1': 'slide-to-left'
+		}
 	};
 	
 	//runtime vars
@@ -29,6 +19,8 @@ var AppFrame = function(config) {
 	this.pages = {};
 	this.activeId = null;
 	this.lastActiveId = null;
+	this.dir = 1;
+	this.isAnimating = false;
 	
 	
 	this.init();
@@ -56,7 +48,7 @@ AppFrame.prototype.init = function() {
 
 	//bind nav behaviour to links inside page
 	this.wrap.on('click', this.config.inlineNavLinks, function(event) {
-		this.linkOnClick($(this).attr('href').substring(1), event);
+		this.onLinkClick($(this).attr('href').substring(1), event);
 	});
 
 	//create transition callback
@@ -95,53 +87,62 @@ AppFrame.prototype.initNav = function() {
 		elem = $(this);
 		pageId = elem.attr('href').substring(1);
 		parent = elem.parent();
-
-		self.navLinks[pageId] = {
+		
+		elem.data({
 			index: index,
-			id: pageId,
-			elem: elem,
-			parent: parent
-		};
+			id: pageId
+		})
+		self.navLinks[pageId] = elem;
 
 		elem.on('click', function(event) {
 			var id = $(this).attr('href').substring(1);
-			self.navOnClick(self.navLinks[id], event);
+			self.onNavClick(self.navLinks[id], event);
 		});
 
 	});
 };
 
-AppFrame.prototype.linkOnClick = function(id, event) {
+AppFrame.prototype.onLinkClick = function(id, event) {
 	event.preventDefault();
 
-	if (id === this.activeId) {
+	if (id === this.activeId || this.isAnimating) {
 		return;
 	}
-
+	
 	this.lastActiveId = this.activeId;
 	this.activeId = id;
+	
+	if (this.lastActiveId < this.activeId ) {
+		this.dir = 1;
+	} else {
+		this.dir = -1;
+	}
+	
 	this.startPageChange();
 };
 
-AppFrame.prototype.navOnClick = function(object, event) {
-	if (object.id === this.activeId) {
+AppFrame.prototype.onNavClick = function(object, event) {
+	if (object.data('id') === this.activeId || this.isAnimating) {
 		event.preventDefault();
 		return;
 	}
 
 	this.navLinks[this.activeId]
-		.parent.removeClass(this.config.navActiveClass);
+		.parent().removeClass(this.config.navActiveClass);
 
-	object.parent.addClass(this.config.navActiveClass);
+	object.parent().addClass(this.config.navActiveClass);
 
-	this.linkOnClick(object.id, event)
+	this.onLinkClick(object.data('id'), event)
 };
 
 AppFrame.prototype.startPageChange = function() {
+	
+	this.isAnimating = true;
+	
 	this.pages[this.activeId]
 		.addClass(this.config.preActiveClass);
-
-	this.wrap.addClass('slide-to-left');
+	
+	this.wrap.addClass(this.config.animations[this.dir]);
 };
 
 AppFrame.prototype.endPageChange = function() {
@@ -152,7 +153,8 @@ AppFrame.prototype.endPageChange = function() {
 	this.pages[this.lastActiveId]
 		.removeClass(this.config.activeClass);
 
-	this.wrap.removeClass('slide-to-left');
+	this.wrap.removeClass(this.config.animations[this.dir]);
+	this.isAnimating = false;
 };
 
 
