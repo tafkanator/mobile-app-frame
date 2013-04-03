@@ -47,7 +47,29 @@
 				navId: '#sitenav',
 				inlineNavLinks: '.app5-nav'
 			});
+
+			appFrame.wrap.on('appFrame.pageChange', function() {
+				console.log('page change');
+			});
+
+			appFrame.pages['page-2'].on('appFrame.beforeFocus', function() {
+				console.log('page 2 before focus');
+				pause(500);
+			});
+
+			appFrame.pages['page-2'].on('appFrame.focus', function() {
+				console.log('page 2 on focus')
+			});
+
+			appFrame.pages['page-2'].on('appFrame.blur', function() {
+				console.log('page 2 on blur')
+			});
 		});
+
+		function pause(milliseconds) {
+			var dt = new Date();
+			while ((new Date()) - dt <= milliseconds) { /* Do nothing */ }
+		}
 	</script>
 	
 </head>

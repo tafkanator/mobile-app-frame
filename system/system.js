@@ -1,3 +1,13 @@
+/**
+ * events:
+ * appFrame.pageChange - triggers every time, when any page starts changing
+ * appFrame.beforeFocus - triggers every time, before specific page starts animating in
+ * appFrame.focus - triggers every time, when specific page is finished animating
+ * appFrame.blur - triggers every time, before specific page starty animating out
+ *
+ * @param config
+ * @constructor
+ */
 var AppFrame = function(config) {
 	this.config = {
 		activeClass: config.activeClass,
@@ -12,7 +22,7 @@ var AppFrame = function(config) {
 			'1': 'slide-to-left'
 		}
 	};
-	
+
 	//runtime vars
 	this.wrap = null;
 	this.navLinks = {};
@@ -21,8 +31,7 @@ var AppFrame = function(config) {
 	this.lastActiveId = null;
 	this.dir = 1;
 	this.isAnimating = false;
-	
-	
+
 	this.init();
 };
 
@@ -53,14 +62,19 @@ AppFrame.prototype.init = function() {
 
 	//create transition callback
 	this.wrap.on( 'webkitTransitionEnd oTransitionEnd transitionend', function(event) {
+		if (event.target.id != self.config.pageWrap.substring(1)) {
+			return false;
+		};
+
 		self.endPageChange();
 	});
 
-	//create custom events
-	
 	//set up loading and show content after its ready. defferds maybe?
 };
 
+/**
+ * loads all pages as jquery objects into this.pages object
+ */
 AppFrame.prototype.initPages = function() {
 	var self = this,
 		elem,
@@ -87,7 +101,7 @@ AppFrame.prototype.initNav = function() {
 		elem = $(this);
 		pageId = elem.attr('href').substring(1);
 		parent = elem.parent();
-		
+
 		elem.data({
 			index: index,
 			id: pageId
@@ -108,16 +122,16 @@ AppFrame.prototype.onLinkClick = function(id, event) {
 	if (id === this.activeId || this.isAnimating) {
 		return;
 	}
-	
+
 	this.lastActiveId = this.activeId;
 	this.activeId = id;
-	
+
 	if (this.lastActiveId < this.activeId ) {
 		this.dir = 1;
 	} else {
 		this.dir = -1;
 	}
-	
+
 	this.startPageChange();
 };
 
@@ -127,21 +141,25 @@ AppFrame.prototype.onNavClick = function(object, event) {
 		return;
 	}
 
-	this.navLinks[this.activeId]
-		.parent().removeClass(this.config.navActiveClass);
+	this.triggerEventsBeforeChange(object.data('id'));
+
+	this.navLinks[this.activeId].parent().removeClass(this.config.navActiveClass);
 
 	object.parent().addClass(this.config.navActiveClass);
 
-	this.onLinkClick(object.data('id'), event)
+	this.onLinkClick(object.data('id'), event);
+
+
+
 };
 
 AppFrame.prototype.startPageChange = function() {
-	
+
 	this.isAnimating = true;
-	
+
 	this.pages[this.activeId]
 		.addClass(this.config.preActiveClass);
-	
+
 	this.wrap.addClass(this.config.animations[this.dir]);
 };
 
@@ -150,11 +168,20 @@ AppFrame.prototype.endPageChange = function() {
 		.removeClass(this.config.preActiveClass)
 		.addClass(this.config.activeClass);
 
-	this.pages[this.lastActiveId]
-		.removeClass(this.config.activeClass);
+	this.pages[this.lastActiveId].removeClass(this.config.activeClass);
 
 	this.wrap.removeClass(this.config.animations[this.dir]);
 	this.isAnimating = false;
+
+	this.triggerEventsAfterChange();
 };
 
+AppFrame.prototype.triggerEventsBeforeChange = function(newPageId) {
+	this.wrap.trigger('appFrame.pageChange');
+	this.pages[this.activeId].trigger('appFrame.blur');
+	this.pages[newPageId].trigger('appFrame.beforeFocus');
+};
 
+AppFrame.prototype.triggerEventsAfterChange = function() {
+	this.pages[this.activeId].trigger('appFrame.focus');
+};
