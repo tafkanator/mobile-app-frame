@@ -48,20 +48,20 @@
 				inlineNavLinks: '.app5-nav'
 			});
 
-			appFrame.wrap.on('appFrame.pageChange', function() {
+			appFrame.wrap.on('maf.pageChange', function() {
 				console.log('page change');
 			});
 
-			appFrame.pages['page-2'].on('appFrame.beforeFocus', function() {
+			appFrame.pages['page-2'].on('maf.beforeFocus', function() {
 				console.log('page 2 before focus');
 				pause(500);
 			});
 
-			appFrame.pages['page-2'].on('appFrame.focus', function() {
+			appFrame.pages['page-2'].on('maf.focus', function() {
 				console.log('page 2 on focus')
 			});
 
-			appFrame.pages['page-2'].on('appFrame.blur', function() {
+			appFrame.pages['page-2'].on('maf.blur', function() {
 				console.log('page 2 on blur')
 			});
 		});
