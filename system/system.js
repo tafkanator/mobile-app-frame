@@ -6,7 +6,7 @@
  * maf.blur - triggers every time, before specific page starty animating out
  */
 
-var AppFrame = function(config) {
+var MAF = function(config) {
 	this.config = {
 		activeClass: config.activeClass,
 		preActiveClass: config.preActiveClass,
@@ -35,7 +35,7 @@ var AppFrame = function(config) {
 	this.init();
 };
 
-AppFrame.prototype.init = function() {
+MAF.prototype.init = function() {
 	var self = this,
 		pageId;
 
@@ -74,7 +74,7 @@ AppFrame.prototype.init = function() {
 	//set up loading and show content after its ready. defferds maybe?
 };
 
-AppFrame.prototype.initPages = function() {
+MAF.prototype.initPages = function() {
 	var self = this,
 		elem,
 		id;
@@ -90,7 +90,7 @@ AppFrame.prototype.initPages = function() {
 	});
 };
 
-AppFrame.prototype.initNav = function() {
+MAF.prototype.initNav = function() {
 	var self = this,
 		elem,
 		pageId,
@@ -115,7 +115,7 @@ AppFrame.prototype.initNav = function() {
 	});
 };
 
-AppFrame.prototype.onLinkClick = function(id, event) {
+MAF.prototype.onLinkClick = function(id, event) {
 	event.preventDefault();
 
 	if (id === this.activeId || this.isAnimating) {
@@ -142,7 +142,7 @@ AppFrame.prototype.onLinkClick = function(id, event) {
 	this.startPageChange();
 };
 
-AppFrame.prototype.onNavClick = function(object, event) {
+MAF.prototype.onNavClick = function(object, event) {
 	if (object.data('id') === this.activeId || this.isAnimating) {
 		event.preventDefault();
 		return;
@@ -156,7 +156,7 @@ AppFrame.prototype.onNavClick = function(object, event) {
 	this.onLinkClick(object.data('id'), event)
 };
 
-AppFrame.prototype.startPageChange = function() {
+MAF.prototype.startPageChange = function() {
 
 	this.isAnimating = true;
 
@@ -166,7 +166,7 @@ AppFrame.prototype.startPageChange = function() {
 	this.wrap.addClass(this.config.animations[this.dir]);
 };
 
-AppFrame.prototype.endPageChange = function() {
+MAF.prototype.endPageChange = function() {
 	this.pages[this.activeId]
 		.removeClass(this.config.preActiveClass)
 		.addClass(this.config.activeClass);
@@ -180,12 +180,12 @@ AppFrame.prototype.endPageChange = function() {
 	this.triggerEventsAfterChange();
 };
 
-AppFrame.prototype.triggerEventsBeforeChange = function(newPageId) {
+MAF.prototype.triggerEventsBeforeChange = function(newPageId) {
 	this.wrap.trigger('maf.pageChange');
 	this.pages[this.activeId].trigger('maf.blur');
 	this.pages[newPageId].trigger('maf.beforeFocus');
 };
 
-AppFrame.prototype.triggerEventsAfterChange = function() {
+MAF.prototype.triggerEventsAfterChange = function() {
 	this.pages[this.activeId].trigger('maf.focus');
 };

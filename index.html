@@ -36,9 +36,9 @@
 	<link rel="stylesheet" href="system/system.css">
 	<script src="system/system.js"></script>
 	<script>
-		var appFrame;
+		var maf;
 		$(document).ready(function() {
-			appFrame = new AppFrame({
+			maf = new MAF({
 				activeClass: 'app5-page-active',
 				preActiveClass: 'app5-page-pre-active',
 				navActiveClass: 'active',
@@ -48,20 +48,20 @@
 				inlineNavLinks: '.app5-nav'
 			});
 
-			appFrame.wrap.on('maf.pageChange', function() {
+			maf.wrap.on('maf.pageChange', function() {
 				console.log('page change');
 			});
 
-			appFrame.pages['page-2'].on('maf.beforeFocus', function() {
+			maf.pages['page-2'].on('maf.beforeFocus', function() {
 				console.log('page 2 before focus');
 				pause(500);
 			});
 
-			appFrame.pages['page-2'].on('maf.focus', function() {
+			maf.pages['page-2'].on('maf.focus', function() {
 				console.log('page 2 on focus')
 			});
 
-			appFrame.pages['page-2'].on('maf.blur', function() {
+			maf.pages['page-2'].on('maf.blur', function() {
 				console.log('page 2 on blur')
 			});
 		});
