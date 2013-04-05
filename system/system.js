@@ -7,6 +7,8 @@
  */
 
 var MAF = function(config) {
+	"use strict";
+
 	this.config = {
 		activeClass: config.activeClass,
 		preActiveClass: config.preActiveClass,
@@ -29,12 +31,16 @@ var MAF = function(config) {
 	this.lastActiveId = null;
 	this.dir = 1;
 	this.isAnimating = false;
-	this.pageWrapId = null;
-
 
 	this.init();
 };
 
+/**
+ * This function:
+ * - loads all pages from DOM to this.pages{}
+ * - loads all nav links from DOM to this.navLinks{}
+ * - add link and transition event listeners
+ */
 MAF.prototype.init = function() {
 	var self = this,
 		pageId;
@@ -69,14 +75,14 @@ MAF.prototype.init = function() {
 		self.endPageChange();
 	});
 
-	//create custom events
-
 	//set up loading and show content after its ready. defferds maybe?
 };
 
+/**
+ * Looks pages under the this.wrap and caches into this.pages
+ */
 MAF.prototype.initPages = function() {
 	var self = this,
-		elem,
 		id;
 
 	this.wrap.find('.' + this.config.pageClass).each(function(index) {
